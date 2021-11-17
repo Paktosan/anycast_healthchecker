@@ -250,6 +250,7 @@ Below are the default settings for all service checks, see `Configuring checks f
 :check_fail: 2
 :check_disabled: true
 :on_disabled: withdraw
+:on_exit: withdraw
 :ip_check_disabled: false
 :custom_bird_reconfigure_cmd_timeout: 2
 
@@ -433,6 +434,7 @@ Here are few examples::
     check_rise        = 2
     check_disabled    = false
     on_disabled       = withdraw
+    on_exit           = none
     ip_prefix         = 10.52.12.1/32
 
     [foo6.bar.com]
@@ -442,6 +444,7 @@ Here are few examples::
     check_fail        = 2
     check_disabled    = false
     on_disabled       = withdraw
+    on_exit           = none
     ip_prefix         = fd12:aba6:57db:ffff::1/128
     ip_check_disabled = false
 
@@ -474,6 +477,14 @@ A service is considered HEALTHY after these many consecutive successful health c
 * **on_disabled** Defaults to **withdraw**
 
 What to do when check is disabled, either ``withdraw`` or ``advertise``
+
+* **on_exit** Defaults to **none**
+
+What to do when anycast-healthchecker exits, either ``none`` or ``withdraw`` or ``advertise``.
+  
+  * ``none`` keep state how it was from checks
+  * ``advertise`` ensure the ip_prefix to be advertised
+  * ``withdraw`` ensure the ip_prefix to be withdrawn
 
 * **ip_prefix** Unset by default
 
